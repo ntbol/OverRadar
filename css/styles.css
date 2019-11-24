@@ -3,7 +3,6 @@
 
 body{
 	margin:0px;
-	overflow: hidden;
 	padding: 0;
 	width: 100%;
 	height: 100%;
@@ -120,11 +119,43 @@ a:hover{
 
 .square{
 	background: #302B63;
-    width: 100%;
-    padding: 30px 10px 30px 10px;
+    min-width:100%;
+    padding: 15px 0px 30px 0px!important;
+    height: 200px;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-property: transform;
+	transition-property: transform;
+}
+.square:hover{
+	-webkit-transform: scale(1.08);
+  	transform: scale(1.08);
+}
 
+.middle{
+	margin-top:29px
 }
 
 .icon{
 	color: #FA9C1D; 
+}
+
+.table-theme{
+	width: 100%;
+	margin-bottom: 1rem;
+	color: #FFF;
+	cursor: default;
+}
+.table-theme, tr{
+	border-bottom: 1px solid #302B63;
+}
+.table-theme, th {
+	padding: 10px 0px 10px 0px;
+}
+.table-theme, td{
+	font-family: BebasNeue-Regular;
+}
+.heroImage{
+	width: 50px;
+	padding: 10px 0px 10px 0px;
 }

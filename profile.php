@@ -2,111 +2,21 @@
 	
 	$username = $_GET['username'];
 	$id = $_GET['id'];
-    $platform = $_GET['platform'];
-    $region = $_GET['region'];
+  $platform = $_GET['platform'];
+  $region = $_GET['region'];
+
+  $data = file_get_contents("https://ow-api.com/v1/stats/$platform/$region/$username-$id/complete");
+
+  $player = json_decode($data);
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test</title>
+	<title><?=$username?>#<?=$id?> Stats - OverRadar</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-
-    $.getJSON('https://ow-api.com/v1/stats/<?=$platform?>/<?=$region?>/<?=$username?>-<?=$id?>/complete', function(data) {
-        
-       var header = 
-            `   
-            <div class="row" style="padding-top:25px">
-              <div class="col-lg-1">
-              <img src="${data.icon}" class="round" width="100%">
-              </div>
-              <div class="col-lg-6">
-                <h1 class="mediumtitle">${data.name}</h1>
-              </div>
-              <div class="col-lg-5">
-                <div class="row" style="text-align:right">
-                  <div class="col-lg-2" style="padding-top:14px">
-                    <h5 class="tinytitlelight">${data.gamesWon}</h5>
-                    <h6 class="tinytitledark">Wins</h6>
-                  </div>
-                  <div class="col-lg-3" style="padding-top:14px">
-                    <h5 class="tinytitlelight"><img src="${data.ratingIcon}" width="30px"> ${data.rating}</h5>
-                    <h6 class="tinytitledark">Skill Rating</h6>
-                  </div>
-                  <div class="col-lg-4" style="padding-top:14px">
-                    <h5 class="tinytitlelight">${data.quickPlayStats.careerStats.allHeroes.game.timePlayed}</h5>
-                    <h6 class="tinytitledark">Time Played</h6>
-                  </div>
-                  <div class="col-lg-3" style="padding-top:14px">
-                    <h5 class="tinytitlelight">${data.prestige}${data.level}</h5>
-                    <h6 class="tinytitledark">Total Level</h6>
-                  </div>
-                </div>
-              </div>          
-            `
-
-          var quickplay = 
-            `   
-            <div class="row" style="padding-top:25px">
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-fire fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.quickPlayStats.careerStats.allHeroes.combat.timeSpentOnFire}</h3>
-                  <h4 class="tinytitledarker">Time Spent Fire</h4>
-                </div>
-              </div>  
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-skull fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.quickPlayStats.careerStats.allHeroes.best.eliminationsMostInGame}</h3>
-                  <h4 class="tinytitledarker">Most Eliminations</h4>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-plus fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.quickPlayStats.careerStats.allHeroes.best.healingDoneMostInGame}</h3>
-                  <h4 class="tinytitledarker">Most Healing</h4>
-                </div>
-              </div>
-            </div>          
-            `
-
-          var comp = 
-            `   
-            <div class="row" style="padding-top:25px">
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-fire fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.competitiveStats.careerStats.allHeroes.combat.timeSpentOnFire}</h3>
-                  <h4 class="tinytitledarker">Time Spent Fire</h4>
-                </div>
-              </div>  
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-skull fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.competitiveStats.careerStats.allHeroes.best.eliminationsMostInGame}</h3>
-                  <h4 class="tinytitledarker">Most Eliminations</h4>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="square" align="center">
-                  <i class="fas fa-plus fa-2x icon"></i>
-                  <h3 class="tinytitlelight">${data.competitiveStats.careerStats.allHeroes.best.healingDoneMostInGame}</h3>
-                  <h4 class="tinytitledarker">Most Healing</h4>
-                </div>
-              </div>
-            </div>          
-            `  
-
-        $(".header").html(header);
-        $(".quickplay").html(quickplay);
-        $(".comp").html(comp);
-    });
-    
-    </script>
-
+  <script type="text/javascript"  src="js/tablesort.js"></script>
+  <script type="text/javascript"  src="js/virtualpointer.class.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
@@ -116,7 +26,7 @@
   <div class="container">
       <div class="row" style="padding: 25px 0px 35px 0px">
         <div class="col-lg-4">
-          <h1 class="smalltitle"><a href="index.php">Over<span style="color:#FA9C1D">Square</span></a></h1>
+          <h1 class="smalltitle"><a href="index.php">Over<span style="color:#FA9C1D">Radar</span></a></h1>
         </div>
         <div class="col-lg-8" align="right" style="padding-top: 11px">
           <form method="get" action="profile.php">
@@ -137,25 +47,170 @@
           </form>
         </div>
       </div>
-      <div class="break"></div>
-  <div class="header" style="padding-bottom: 35px"></div>
-  <div class="row">
-    <div class="col-lg-6">
-      <h3 class="tinytitle">Quickplay Stats</h3>
-      <div class="break"></div>
-      <div class="quickplay"></div>
-    </div>
-    <div class="col-lg-6">
-      <h3 class="tinytitle">Competitive Stats</h3>
-      <div class="break"></div>
-      <div class="comp"></div>
+  <div class="break"></div>
+  <div class="header" style="padding-bottom: 35px">
+    <div class="row" style="padding-top:25px">
+        <div class="col-lg-2" align="center">
+          <img src="<?=$player->icon?>" class="round" width="100px">
+        </div>
+        <div class="col-lg-5" style="padding-top:15px">
+          <h1 class="mediumtitle"><?=$player->name?></h1>
+        </div>
+        <div class="col-lg-5" style="padding-top:15px"> 
+          <div class="row" style="text-align:right">
+            <div class="col-lg-2" style="padding-top:14px">
+              <h5 class="tinytitlelight"><?=$player->gamesWon?></h5>
+              <h6 class="tinytitledark">Wins</h6>
+            </div>
+            <div class="col-lg-3" style="padding-top:14px">
+              <h5 class="tinytitlelight"><img src="<?=$player->ratingIcon?>" width="30px"><?=$player->rating?></h5>
+              <h6 class="tinytitledark">Skill Rating</h6>
+            </div>
+            <div class="col-lg-4" style="padding-top:14px">
+              <h5 class="tinytitlelight">
+                <?=$player->quickPlayStats->careerStats->allHeroes->game->timePlayed?></h5>
+              <h6 class="tinytitledark">Time Played</h6>
+            </div>
+            <div class="col-lg-3" style="padding-top:14px">
+              <h5 class="tinytitlelight"><?=$player->prestige?><?=$player->level?></h5>
+              <h6 class="tinytitledark">Total Level</h6>
+            </div>
+          </div>
+        </div>    
     </div>
   </div>
-
-
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="tinytitle">Quickplay Stats</h3>
+      <div class="break"></div>
+    </div>
+    <div class="col-lg-12">
+      <div class="quickplay">
+        <div class="row" style="padding-top:25px;padding-bottom:25px">
+          <div class="col-md-2">
+            <div class="square" align="center">
+              <i class="fas fa-fire fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->combat->timeSpentOnFire?></h3>
+              <h4 class="tinytitledarker">Time Spent Fire</h4>
+            </div>
+          </div>  
+          <div class="col-md-2" style="padding-bottom:25px">
+            <div class="square" align="center">
+              <i class="fas fa-skull fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->best->eliminationsMostInGame?></h3>
+              <h4 class="tinytitledarker">Most Eliminations<br>In Game</h4>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-bottom:25px">
+            <div class="square" align="center">
+              <i class="fas fa-plus fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->best->healingDoneMostInGame?></h3>
+              <h4 class="tinytitledarker">Most Healing<br>in Game</h4>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-bottom:25px">
+            <div class="square" align="center">
+              <i class="fas fa-crown fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->best->eliminationsMostInGame?></h3>
+              <h4 class="tinytitledarker">K/D Ratio</h4>
+            </div>
+          </div>  
+          <div class="col-md-2" style="padding-bottom:25px">
+            <div class="square" align="center">
+              <i class="fas fa-user fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->combat->soloKills?></h3>
+              <h4 class="tinytitledarker">Solo Kills</h4>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-bottom:25px">
+            <div class="square" align="center">
+              <i class="fas fa-radiation-alt fa-2x icon middle"></i>
+              <h3 class="tinytitlelight"><?=$player->quickPlayStats->careerStats->allHeroes->combat->environmentalKills?></h3>
+              <h4 class="tinytitledarker">Enviromental Kills</h4>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" style="padding-bottom: 15px">
+      <input class="form-control" type="text" id="myInput" placeholder="Search Hero Name...">
+    </div>
+    <div class="col-lg-12">     
+    <table class="table-theme sortable"  id="bookName">
+      <thead>
+        <tr>
+          <th class="col-1"></th>
+          <th scope="col" compareMethod="text">Hero</th>
+          <th scope="col" compareMethod="number">Wins</th>
+          <th scope="col" compareMethod="numeric">K/D</th>
+          <th scope="col" compareMethod="time">Time on Fire</th>
+          <th scope="col" compareMethod="number">Accuracy</th>
+          <th scope="col" compareMethod="time">Time Played</th>
+        </tr>
+      </thead>
+      <?php 
+        $anaKD = $player->quickPlayStats->careerStats->ana->combat->eliminations / $player->quickPlayStats->careerStats->ana->combat->deaths;
+        $asheKD = $player->quickPlayStats->careerStats->ashe->combat->eliminations / $player->quickPlayStats->careerStats->ashe->combat->deaths;
+        $baptisteKD = $player->quickPlayStats->careerStats->ana->combat->eliminations / $player->quickPlayStats->careerStats->ana->combat->deaths;
+        $anaKD = $player->quickPlayStats->careerStats->ana->combat->eliminations / $player->quickPlayStats->careerStats->ana->combat->deaths;
+        $anaKD = $player->quickPlayStats->careerStats->ana->combat->eliminations / $player->quickPlayStats->careerStats->ana->combat->deaths;
+      ?>
+      <tbody>
+          <tr>
+            <td><img src="img/ana.png" class="heroImage"></td>
+            <td>Ana</td>
+            <td><?=$player->quickPlayStats->careerStats->ana->game->gamesWon?></td>
+            <td><?=round($anaKD, 2)?></td>
+            <td><?=$player->quickPlayStats->careerStats->ana->combat->timeSpentOnFire?></td>
+            <td><?=$player->quickPlayStats->careerStats->ana->combat->weaponAccuracy?></td>
+            <td><?=$player->quickPlayStats->careerStats->ana->game->timePlayed?></td>
+          </tr>
+          <tr>
+            <td><img src="img/ashe.png" class="heroImage"></td>
+            <td>Ashe</td>
+            <td><?=$player->quickPlayStats->careerStats->ashe->game->gamesWon?></td>
+            <td><?=round($asheKD, 2)?></td>
+            <td><?=$player->quickPlayStats->careerStats->ashe->combat->timeSpentOnFire?></td>
+            <td><?=$player->quickPlayStats->careerStats->ashe->combat->weaponAccuracy?></td>
+            <td><?=$player->quickPlayStats->careerStats->ashe->game->timePlayed?></td>
+          </tr>
+          <tr>
+            <td><img src="img/baptiste.png" class="heroImage"></td>
+            <td>Baptiste</td>
+            <td><?=$player->quickPlayStats->careerStats->baptiste->game->gamesWon?></td>
+            <td><?=round($baptisteKD, 2)?></td>
+            <td><?=$player->quickPlayStats->careerStats->baptiste->combat->timeSpentOnFire?></td>
+            <td><?=$player->quickPlayStats->careerStats->baptiste->combat->weaponAccuracy?></td>
+            <td><?=$player->quickPlayStats->careerStats->baptiste->game->timePlayed?></td>
+          </tr>          
+      </tbody>
+    </table>
+    </div>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <script>
+    function bookSearch(event) {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#bookName tbody").rows;
+        
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }      
+        }
+    }
+    document.querySelector('#myInput').addEventListener('keyup', bookSearch, false);
+  </script>
 </body>
 </html>

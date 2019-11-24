@@ -17,7 +17,7 @@
 <div id="header">
 	<div id="wrap" align="center">
 		<div class="container">
-			<h1 class="title">Over<span style="color:#FA9C1D">Square</span></h1>
+			<h1 class="title">Over<span style="color:#FA9C1D">Radar</span></h1>
 			<h3>Live Updated Overwatch Stats</h3>
 			<form method="get" action="profile.php">
 
