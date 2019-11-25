@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel='icon' href='img/favicon.ico' type='image/x-icon'/ >
 	<title>Overwatch Player Stats - OverRader 1.0</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" href="css/styles.css" type="text/css">

@@ -15,6 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel='icon' href='img/favicon.ico' type='image/x-icon'/ >
 	<title><?=$username?>#<?=$id?> Overwatch Stats - OverRadar 1.0</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript"  src="js/tablesort.js"></script>
