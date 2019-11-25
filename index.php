@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test</title>
+	<title>Overwatch Player Stats - OverRader 1.0</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
 
@@ -26,7 +26,7 @@
 				<select name="platform" class="form-style">
 				    <option value="pc">PC</option>
 				    <option value="xbox">Xbox</option>
-				    <option value="ps4">PS4</option>
+				    <option value="psn">PS4</option>
 				    <option value="switch">Switch</option>
 				 </select>
 				 <select name="region" class="form-style">
